@@ -10,16 +10,16 @@ clean:
 .PHONY: html
 html: abstracts.html
 abstracts.html: abstracts.org
-	pandoc -o $@ $<
+	pandoc -s -o $@ $<
 
 .PHONY: epub
 epub: abstracts.epub
 abstracts.epub: abstracts.html
-	ebook-convert $< $@
+	ebook-convert $< $@ --level1-toc //h:h1 --level2-toc //h:h2
 
 .PHONY: azw3
 azw3: abstracts.azw3
-abstracts.azw3: abstracts.html
+abstracts.azw3: abstracts.epub
 	ebook-convert $< $@
 
 
