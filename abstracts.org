@@ -1,0 +1,1929 @@
+* POPL 2017- Proceedings of the 44th ACM SIGPLAN Symposium on Principles
+
+** SESSION: Keynotes
+
+*** [[http://dl.acm.org/authorize?N29918][The influence of dependent types (keynote)]]
+-  Stephanie Weirich
+
+What has dependent type theory done for Haskell? In this talk, I will
+discuss the influence of dependent types on the design of programming
+languages and on the practice of functional programmers. Over the past
+ten years, the Glasgow Haskell compiler has adopted several type
+system features inspired by dependent type theory. However, this
+process has not been a direct translation; working in the context of
+an existing language has lead us to new designs in the semantics of
+dependent types. I will take a close look at what we have achieved in
+GHC and discuss what we have learned from this experiment: what works
+now, what doesn't work yet, and what has surprised us along the way.
+
+*** [[http://dl.acm.org/authorize?N29919][Rust: from POPL to practice (keynote)]]
+-  Aaron Turon
+  
+In 2015, a language based fundamentally on substructural
+typing–Rust–hit its 1.0 release, and less than a year later it has
+been put into production use in a number of tech companies, including
+some household names. The language has started a trend, with several
+other mainstream languages, including C++ and Swift, in the early
+stages of incorporating ideas about ownership. How did this come
+about?
+
+Rust's core focus is safe systems programming. It does not require a
+runtime system or garbage collector, but guarantees memory safety. It
+does not stipulate any particular style of concurrent programming, but
+instead provides the tools needed to guarantee data race freedom even
+when doing low-level shared-state concurrency. It allows you to build
+up high-level abstractions without paying a tax; its compilation model
+ensures that the abstractions boil away.
+
+These benefits derive from two core aspects of Rust: its ownership
+system (based on substructural typing) and its trait system (a
+descendant of Haskell's typeclasses). The talk will cover these two
+pillars of Rust design, with particular attention to the key
+innovations that make the language usable at scale. It will highlight
+the implications for concurrency, where Rust provides a unique
+perspective. It will also touch on aspects of Rust's development that
+tend to get less attention within the POPL community: Rust's
+governance and open development process, and design considerations
+around language and library evolution. Finally, it will mention a few
+of the myriad open research questions around Rust.
+
+
+** SESSION: Abstract Interpretation
+
+*** [[http://dl.acm.org/authorize?N29910][Ogre and Pythia: an invariance proof method for weak consistency models]]
+
+-  Jade Alglave
+-  Patrick Cousot
+  
+We design an invariance proof method for concurrent programs
+  parameterised by a weak consistency model. The calculational design
+  of the invariance proof method is by abstract interpretation of a
+  truly parallel analytic semantics. This generalises the methods by
+  Lamport and Owicki-Gries for sequential consistency. We use cat as
+  an example of language to write consistency specifications of both
+  concurrent programs and machine architectures.
+
+*** [[http://dl.acm.org/authorize?N29911][A posteriori environment analysis with Pushdown Delta CFA]]
+
+-  Kimball Germane
+-  Matthew Might
+  
+Flow-driven higher-order inlining is blocked by free variables, yet
+current theories of environment analysis cannot reliably cope with
+multiply-bound variables. One of these, ΔCFA, is a promising
+theory based on stack change but is undermined by its finite-state
+model of the stack. We present Pushdown ΔCFA which takes a
+ΔCFA-approach to pushdown models of control flow and can cope with
+multiply-bound variables, even in the face of recursion.
+
+
+*** [[http://dl.acm.org/authorize?N29912][Semantic-directed clumping of disjunctive abstract states]]
+
+-  Huisong Li
+-  Francois Berenger
+-  Bor-Yuh Evan Chang
+-  Xavier Rival
+  
+To infer complex structural invariants, shape analyses rely on
+  expressive families of logical properties. Many such analyses
+  manipulate abstract memory states that consist of separating
+  conjunctions of basic predicates describing atomic blocks or
+  summaries. Moreover, they use finite disjunctions of abstract memory
+  states in order to account for dissimilar shapes. Disjunctions
+  should be kept small for the sake of scalability, though precision
+  often requires to keep additional case splits. In this context,
+  deciding when and how to merge case splits and to replace them with
+  summaries is critical both for the precision and for the
+  efficiency. Existing techniques use sets of syntactic rules, which
+  are tedious to design and prone to failure. In this paper, we design
+  a semantic criterion to clump abstract states based on their
+  silhouette which applies not only to the conservative union of
+  disjuncts, but also to the weakening of separating conjunction of
+  memory predicates into inductive summaries. Our approach allows to
+  define union and widening operators that aim at preserving the case
+  splits that are required for the analysis to succeed. We implement
+  this approach in the MemCAD analyzer, and evaluate it on real-world
+  C codes from existing libraries, including programs dealing with
+  doubly linked lists, red-black trees and AVL-trees.
+ 
+  
+
+
+*** [[http://dl.acm.org/authorize?N29913][Fast polyhedra abstract domain]]
+
+-  Gagandeep Singh
+-  Markus Püschel
+-  Martin Vechev
+ 
+Numerical abstract domains are an important ingredient of modern
+static analyzers used for verifying critical program properties (e.g.,
+absence of buffer overflow or memory safety). Among the many numerical
+domains introduced over the years, Polyhedra is the most expressive
+one, but also the most expensive: it has worst-case exponential space
+and time complexity. As a consequence, static analysis with the
+Polyhedra domain is thought to be impractical when applied to large
+scale, real world programs.
+
+In this paper, we present a new approach and a complete implementation
+for speeding up Polyhedra domain analysis. Our approach does not lose
+precision, and for many practical cases, is orders of magnitude faster
+than state-of-the-art solutions. The key insight underlying our work
+is that polyhedra arising during analysis can usually be kept
+decomposed, thus considerably reducing the overall complexity.
+
+We first present the theory underlying our approach, which identifies
+the interaction between partitions of variables and domain
+operators. Based on the theory we develop new algorithms for these
+operators that work with decomposed polyhedra. We implemented these
+algorithms using the same interface as existing libraries, thus
+enabling static analyzers to use our implementation with little
+effort. In our evaluation, we analyze large benchmarks from the
+popular software verification competition, including Linux device
+drivers with over 50K lines of code. Our experimental results
+demonstrate massive gains in both space and time: we show end-to-end
+speedups of two to five orders of magnitude compared to
+state-of-the-art Polyhedra implementations as well as significant
+memory gains, on all larger benchmarks. In fact, in many cases our
+analysis terminates in seconds where prior code runs out of memory or
+times out after 4 hours.
+
+We believe this work is an important step in making the Polyhedra
+abstract domain both feasible and practically usable for handling
+large, real-world programs.
+  
+
+** SESSION: Type Systems 1
+
+*** [[http://dl.acm.org/authorize?N29914][Polymorphism, subtyping, and type inference in MLsub]]
+
+-  Stephen Dolan
+-  Alan Mycroft
+
+We present a type system combining subtyping and ML-style parametric
+polymorphism. Unlike previous work, our system supports type inference
+and has compact principal types. We demonstrate this system in the
+minimal language MLsub, which types a strict superset of core ML
+programs.
+
+This is made possible by keeping a strict separation between the types
+used to describe inputs and those used to describe outputs, and
+extending the classical unification algorithm to handle subtyping
+constraints between these input and output types. Principal types are
+kept compact by type simplification, which exploits deep connections
+between subtyping and the algebra of regular languages. An
+implementation is available online.
+
+*** TODO [[http://dl.acm.org/authorize?N29925][Java generics are turing complete]]
+
+-  Radu Grigore
+
+This paper describes a reduction from the halting problem of Turing
+machines to subtype checking in Java. It follows that subtype checking
+in Java is undecidable, which answers a question posed by Kennedy and
+Pierce in 2007. It also follows that Java's type checker can recognize
+any recursive language, which improves a result of Gill and Levy
+from 2016. The latter point is illustrated by a parser generator for
+fluent interfaces.
+  
+
+*** [[http://dl.acm.org/authorize?N29926][Hazelnut: a bidirectionally typed structure editor calculus]]
+
+-  Cyrus Omar
+-  Ian Voysey
+-  Michael Hilton
+-  Jonathan Aldrich
+-  Matthew A. Hammer
+
+  
+Structure editors allow programmers to edit the tree structure of a
+program directly. This can have cognitive benefits, particularly for
+novice and end-user programmers. It also simplifies matters for tool
+designers, because they do not need to contend with malformed program
+text.
+
+This paper introduces Hazelnut, a structure editor based on a small
+bidirectionally typed lambda calculus extended with holes and a
+cursor. Hazelnut goes one step beyond syntactic well-formedness: its
+edit actions operate over statically meaningful incomplete
+terms. Naïvely, this would force the programmer to construct terms in
+a rigid "outside-in" manner. To avoid this problem,
+the action semantics automatically places terms assigned a type that
+is inconsistent with the expected type inside a hole. This
+meaningfully defers the type consistency check until the term inside
+the hole is finished.
+
+Hazelnut is not intended as an end-user tool itself. Instead, it
+serves as a foundational account of typed structure editing. To that
+end, we describe how Hazelnut's rich metatheory, which we have
+mechanized using the Agda proof assistant, serves as a guide when we
+extend the calculus to include binary sum types. We also discuss
+various interpretations of holes, and in so doing reveal connections
+with gradual typing and contextual modal type theory, the Curry-Howard
+interpretation of contextual modal logic. Finally, we discuss how
+Hazelnut's semantics lends itself to implementation as an
+event-based functional reactive program. Our simple reference
+implementation is written using js_of_ocaml.
+
+*** TODO [[http://dl.acm.org/authorize?N29927][Modules, abstraction, and parametric polymorphism]]
+
+-  Karl Crary
+  
+Reynolds's Abstraction theorem forms the mathematical foundation for
+data abstraction. His setting was the polymorphic lambda
+calculus. Today, many modern languages, such as the ML family, employ
+rich module systems designed to give more expressive support for data
+abstraction than the polymorphic lambda calculus, but analogues of the
+Abstraction theorem for such module systems have lagged far behind.
+
+We give an account of the Abstraction theorem for a modern module
+calculus supporting generative and applicative functors, higher-order
+functors, sealing, and translucent signatures. The main issues to be
+overcome are: (1) the fact that modules combine both types and terms,
+so they must be treated as both simultaneously, (2) the effect
+discipline that models the distinction between transparent and opaque
+modules, and (3) a very rich language of type constructors supporting
+singleton kinds. We define logical equivalence for modules and show
+that it coincides with contextual equivalence. This substantiates the
+folk theorem that modules are good for data abstraction. All our
+proofs are formalized in Coq.
+
+
+** SESSION: Probabilistic Programming
+
+*** [[http://dl.acm.org/authorize?N29928][Beginner's luck: a language for property-based generators]]
+
+-  Leonidas Lampropoulos
+-  Diane Gallois-Wong
+-  Cătălin Hriţcu
+-  John Hughes
+-  Benjamin C. Pierce
+-  Li-yao Xia
+  
+Property-based random testing à la QuickCheck requires building
+efficient generators for well-distributed random data satisfying
+complex logical predicates, but writing these generators can be
+difficult and error prone. We propose a domain-specific language in
+which generators are conveniently expressed by decorating predicates
+with lightweight annotations to control both the distribution of
+generated values and the amount of constraint solving that happens
+before each variable is instantiated. This language, called Luck,
+makes generators easier to write, read, and maintain.
+
+We give Luck a formal semantics and prove several fundamental
+properties, including the soundness and completeness of random
+generation with respect to a standard predicate semantics. We evaluate
+Luck on common examples from the property-based testing literature and
+on two significant case studies, showing that it can be used in
+complex domains with comparable bug-finding effectiveness and a
+significant reduction in testing code size compared to handwritten
+generators.
+
+*** TODO [[http://dl.acm.org/authorize?N29929][Exact Bayesian inference by symbolic disintegration]]
+
+-  Chung-chieh Shan
+-  Norman Ramsey
+  
+Bayesian inference, of posterior knowledge from prior knowledge and
+  observed evidence, is typically defined by Bayes's rule,
+  which says the posterior multiplied by the probability of an
+  observation equals a joint probability. But the observation of a
+  continuous quantity usually has probability zero, in which case
+  Bayes's rule says only that the unknown times zero is
+  zero. To infer a posterior distribution from a zero-probability
+  observation, the statistical notion of disintegration tells us to
+  specify the observation as an expression rather than a predicate,
+  but does not tell us how to compute the posterior. We present the
+  first method of computing a disintegration from a probabilistic
+  program and an expression of a quantity to be observed, even when
+  the observation has probability zero. Because the method produces an
+  exact posterior term and preserves a semantics in which monadic
+  terms denote measures, it composes with other inference methods in a
+  modular way—without sacrificing accuracy or performance.
+  
+*** [[http://dl.acm.org/authorize?N29920][Stochastic invariants for probabilistic termination]]
+
+-  Krishnendu Chatterjee
+-  Petr Novotný
+-  Ðorđe Žikelić
+  
+Termination is one of the basic liveness properties, and we study the
+termination problem for probabilistic programs with real-valued
+variables. Previous works focused on the qualitative problem that asks
+whether an input program terminates with probabilityÂ 1 (almost-sure
+termination). A powerful approach for this qualitative problem is the
+notion of ranking supermartingales with respect to a given set of
+invariants. The quantitative problem (probabilistic termination) asks
+for bounds on the termination probability, and this problem has not
+been addressed yet. A fundamental and conceptual drawback of the
+existing approaches to address probabilistic termination is that even
+though the supermartingales consider the probabilistic behaviour of
+the programs, the invariants are obtained completely ignoring the
+probabilistic aspect (i.e., the invariants are obtained considering
+all behaviours with no information about the probability).
+
+In this work we address the probabilistic termination problem for
+linear-arithmetic probabilistic programs with nondeterminism. We
+formally define the notion of stochastic invariants, which are
+constraints along with a probability bound that the constraints
+hold. We introduce a concept of repulsing supermartingales. First, we
+show that repulsing supermartingales can be used to obtain bounds on
+the probability of the stochastic invariants. Second, we show the
+effectiveness of repulsing supermartingales in the following three
+ways: (1)Â With a combination of ranking and repulsing
+supermartingales we can compute lower bounds on the probability of
+termination; (2)Â repulsing supermartingales provide witnesses for
+refutation of almost-sure termination; and (3)Â with a combination of
+ranking and repulsing supermartingales we can establish persistence
+properties of probabilistic programs.
+
+Along with our conceptual contributions, we establish the following
+computational results: First, the synthesis of a stochastic invariant
+which supports some ranking supermartingale and at the same time
+admits a repulsing supermartingale can be achieved via reduction to
+the existential first-order theory of reals, which generalizes
+existing results from the non-probabilistic setting. Second, given a
+program with "strict invariants" (e.g., obtained via
+abstract interpretation) and a stochastic invariant, we can check in
+polynomial time whether there exists a linear repulsing
+supermartingale w.r.t. the stochastic invariant (via reduction to
+LP). We also present experimental evaluation of our approach on
+academic examples.
+
+*** [[http://dl.acm.org/authorize?N29921][Coupling proofs are probabilistic product programs]]
+
+-  Gilles Barthe
+-  Benjamin Grégoire
+-  Justin Hsu
+-  Pierre-Yves Strub
+  
+Couplings are a powerful mathematical tool for reasoning about pairs
+of probabilistic processes. Recent developments in formal verification
+identify a close connection between couplings and pRHL, a relational
+program logic motivated by applications to provable security, enabling
+formal construction of couplings from the probability theory
+literature. However, existing work using pRHL merely shows existence
+of a coupling and does not give a way to prove quantitative properties
+about the coupling, needed to reason about mixing and convergence of
+probabilistic processes. Furthermore, pRHL is inherently incomplete,
+and is not able to capture some advanced forms of couplings such as
+shift couplings. We address both problems as follows.
+
+First, we define an extension of pRHL, called x-pRHL, which explicitly
+constructs the coupling in a pRHL derivation in the form of a
+probabilistic product program that simulates two correlated runs of
+the original program. Existing verification tools for probabilistic
+programs can then be directly applied to the probabilistic product to
+prove quantitative properties of the coupling. Second, we equip x-pRHL
+with a new rule for while loops, where reasoning can freely mix
+synchronized and unsynchronized loop iterations. Our proof rule can
+capture examples of shift couplings, and the logic is relatively
+complete for deterministic programs.
+
+We show soundness of x-PRHL and use it to analyze two classes of
+examples. First, we verify rapid mixing using different tools from
+coupling: standard coupling, shift coupling, and path coupling, a
+compositional principle for combining local couplings into a global
+coupling. Second, we verify (approximate) equivalence between a source
+and an optimized program for several instances of loop optimizations
+from the literature.
+
+  
+
+
+** SESSION: Concurrency 1
+
+*** [[http://dl.acm.org/authorize?N29922][A promising semantics for relaxed-memory concurrency]]
+
+-  Jeehoon Kang
+-  Chung-Kil Hur
+-  Ori Lahav
+-  Viktor Vafeiadis
+-  Derek Dreyer
+  
+Despite many years of research, it has proven very difficult to
+develop a memory model for concurrent programming languages that
+adequately balances the conflicting desiderata of programmers,
+compilers, and hardware. In this paper, we propose the first relaxed
+memory model that (1) accounts for a broad spectrum of features from
+the C++11 concurrency model, (2) is implementable, in the sense that
+it provably validates many standard compiler optimizations and
+reorderings, as well as standard compilation schemes to x86-TSO and
+Power, (3) justifies simple invariant-based reasoning, thus
+demonstrating the absence of bad "out-of-thin-air" behaviors, (4)
+supports "DRF" guarantees, ensuring that programmers who use
+sufficient synchronization need not understand the full complexities
+of relaxed-memory semantics, and (5) defines the semantics of racy
+programs without relying on undefined behaviors, which is a
+prerequisite for applicability to type-safe languages like Java.
+
+The key novel idea behind our model is the notion of *promises*: a
+thread may promise to execute a write in the future, thus enabling
+other threads to read from that write out of order. Crucially, to
+prevent out-of-thin-air behaviors, a promise step requires a
+thread-local certification that it will be possible to execute the
+promised write even in the absence of the promise. To establish
+confidence in our model, we have formalized most of our key results in
+Coq.
+
+*** [[http://dl.acm.org/authorize?N29923][Automatically comparing memory consistency models]]
+
+-  John Wickerson
+-  Mark Batty
+-  Tyler Sorensen
+-  George A. Constantinides
+  
+A memory consistency model (MCM) is the part of a programming language
+or computer architecture specification that defines which values can
+legally be read from shared memory locations. Because MCMs take into
+account various optimisations employed by architectures and compilers,
+they are often complex and counterintuitive, which makes them
+challenging to design and to understand.
+
+We identify four tasks involved in designing and understanding MCMs:
+generating conformance tests, distinguishing two MCMs, checking
+compiler optimisations, and checking compiler mappings. We show that
+all four tasks are instances of a general constraint-satisfaction
+problem to which the solution is either a program or a pair of
+programs. Although this problem is intractable for automatic solvers
+when phrased over programs directly, we show how to solve analogous
+constraints over program executions, and then construct programs that
+satisfy the original constraints.
+
+Our technique, which is implemented in the Alloy modelling framework,
+is illustrated on several software- and architecture-level MCMs, both
+axiomatically and operationally defined. We automatically recreate
+several known results, often in a simpler form, including:
+distinctions between variants of the C11 MCM; a failure of the
+'SC-DRF guarantee' in an early C11 draft; that x86 is
+'multi-copy atomic' and Power is not; bugs in common
+C11 compiler optimisations; and bugs in a compiler mapping from OpenCL
+to AMD-style GPUs. We also use our technique to develop and validate a
+new MCM for NVIDIA GPUs that supports a natural mapping from OpenCL.
+
+*** [[http://dl.acm.org/authorize?N29924][Interactive proofs in higher-order concurrent separation logic]]
+
+-  Robbert Krebbers
+-  Amin Timany
+-  Lars Birkedal
+  
+When using a proof assistant to reason in an embedded logic -- like
+separation logic -- one cannot benefit from the proof contexts and
+basic tactics of the proof assistant. This results in proofs that are
+at a too low level of abstraction because they are cluttered with
+bookkeeping code related to manipulating the object logic.
+
+In this paper, we introduce a so-called proof mode that extends the
+Coq proof assistant with (spatial and non-spatial) named proof
+contexts for the object logic. We show that thanks to these contexts
+we can implement high-level tactics for introduction and elimination
+of the connectives of the object logic, and thereby make reasoning in
+the embedded logic as seamless as reasoning in the meta logic of the
+proof assistant. We apply our method to Iris: a state of the art
+higher-order impredicative concurrent separation logic.
+
+We show that our method is very general, and is not just limited to
+program verification. We demonstrate its generality by formalizing
+correctness proofs of fine-grained concurrent algorithms, derived
+constructs of the Iris logic, and a unary and binary logical relation
+for a language with concurrency, higher-order store, polymorphism, and
+recursive types. This is the first formalization of a binary logical
+relation for such an expressive language. We also show how to use the
+logical relation to prove contextual refinement of fine-grained
+concurrent algorithms.
+  
+
+*** [[http://dl.acm.org/authorize?N29935][A relational model of types-and-effects in higher-order concurrent separation logic]]
+
+-  Morten Krogh-Jespersen
+-  Kasper Svendsen
+-  Lars Birkedal
+  
+Recently we have seen a renewed interest in programming languages that
+tame the complexity of state and concurrency through refined type
+systems with more fine-grained control over effects. In addition to
+simplifying reasoning and eliminating whole classes of bugs,
+statically tracking effects opens the door to advanced compiler
+optimizations.
+
+In this paper we present a relational model of a type-and-effect
+system for a higher-order, concurrent program- ming language. The
+model precisely captures the semantic invariants expressed by the
+effect annotations. We demonstrate that these invariants are strong
+enough to prove advanced program transformations, including automatic
+parallelization of expressions with suitably disjoint effects. The
+model also supports refinement proofs between abstract data types
+implementations with different internal data representations,
+including proofs that fine-grained concurrent algorithms refine their
+coarse-grained counterparts. This is the first model for such an
+expressive language that supports both effect-based optimizations and
+data abstraction.
+
+The logical relation is defined in Iris, a state-of-the-art
+higher-order concurrent separation logic. This greatly simplifies
+proving well-definedness of the logical relation and also provides us
+with a powerful logic for reasoning in the model.
+
+
+** SESSION: Logic
+
+*** [[http://dl.acm.org/authorize?N29936][Monadic second-order logic on finite sequences]]
+
+-  Loris D'Antoni
+-  Margus Veanes
+
+We extend the weak monadic second-order logic of one successor on
+  finite strings (M2L-STR) to symbolic alphabets by allowing character
+  predicates to range over decidable quantifier free theories instead
+  of finite alphabets. We call this logic, which is able to describe
+  sequences over complex and potentially infinite domains, symbolic
+  M2L-STR (S-M2L-STR). We then present a decision procedure for
+  S-M2L-STR based on a reduction to symbolic finite automata, a
+  decidable extension of finite automata that allows transitions to
+  carry predicates and can therefore model symbolic alphabets. The
+  reduction constructs a symbolic automaton over an alphabet
+  consisting of pairs of symbols where the first element of the pair
+  is a symbol in the original formula's alphabet, while the second
+  element is a bit-vector. To handle this modified alphabet we show
+  that the Cartesian product of two decidable Boolean algebras (e.g.,
+  the formula's one and the bit-vector's one) also forms a decidable
+  Boolean algebras. To make the decision procedure practical, we
+  propose two efficient representations of the Cartesian product of
+  two Boolean algebras, one based on algebraic decision diagrams and
+  one on a variant of Shannon expansions. Finally, we implement our
+  decision procedure and evaluate it on more than 10,000
+  formulas. Despite the generality, our implementation has comparable
+  performance with the state-of-the-art M2L-STR solvers.
+
+
+*** [[http://dl.acm.org/authorize?N29937][On the relationship between higher-order recursion schemes and higher-order fixpoint logic]]
+
+-  Naoki Kobayashi
+-  Étienne Lozes
+-  Florian Bruse
+
+We study the relationship between two kinds of higher-order extensions
+of model checking: HORS model checking, where models are extended to
+higher-order recursion schemes, and HFL model checking, where the
+logic is extedned to higher-order modal fixpoint logic. Those extensions
+have been independently studied until recently, and the former has
+been applied to higher-order program verification. We show that there
+exist (arguably) natural reductions between the two problems. To prove
+the correctness of the translation from HORS to HFL model checking, we
+establish a type-based characterization of HFL model checking, which
+should be of independent interest. The results reveal a close
+relationship between the two problems, enabling cross-fertilization of
+the two research threads.
+
+*** TODO [[http://dl.acm.org/authorize?N29938][Coming to terms with quantified reasoning]]
+
+-  Laura Kovács
+-  Simon Robillard
+-  Andrei Voronkov
+
+The theory of finite term algebras provides a natural framework to
+describe the semantics of functional languages. The ability to
+efficiently reason about term algebras is essential to automate
+program analysis and verification for functional or imperative
+programs over inductively defined data types such as lists and
+trees. However, as the theory of finite term algebras is not finitely
+axiomatizable, reasoning about quantified properties over term
+algebras is challenging.
+
+In this paper we address full first-order reasoning about properties
+of programs manipulating term algebras, and describe two approaches
+for doing so by using first-order theorem proving. Our first method is
+a conservative extension of the theory of term alge- bras using a
+finite number of statements, while our second method relies on
+extending the superposition calculus of first-order theorem provers
+with additional inference rules.
+
+We implemented our work in the first-order theorem prover Vampire and
+evaluated it on a large number of inductive datatype benchmarks, as
+well as game theory constraints. Our experimental results show that
+our methods are able to find proofs for many hard problems previously
+unsolved by state-of-the-art methods. We also show that Vampire
+implementing our methods outperforms existing SMT solvers able to deal
+with inductive data types.
+
+** SESSION: Compiler Optimisation
+
+*** [[http://dl.acm.org/authorize?N29939][A program optimization for automatic database result caching]]
+
+-  Ziv Scully
+-  Adam Chlipala
+  
+Most popular Web applications rely on persistent databases based on
+languages like SQL for declarative specification of data models and
+the operations that read and modify them. As applications scale up in
+user base, they often face challenges responding quickly enough to the
+high volume of requests. A common aid is caching of database results
+in the application's memory space, taking advantage of
+program-specific knowledge of which caching schemes are sound and
+useful, embodied in handwritten modifications that make the program
+less maintainable. These modifications also require nontrivial
+reasoning about the read-write dependencies across operations. In this
+paper, we present a compiler optimization that automatically adds
+sound SQL caching to Web applications coded in the Ur/Web
+domain-specific functional language, with no modifications required to
+source code. We use a custom cache implementation that supports
+concurrent operations without compromising the transactional semantics
+of the database abstraction. Through experiments with microbenchmarks
+and production Ur/Web applications, we show that our optimization in
+many cases enables an easy doubling or more of an application's
+throughput, requiring nothing more than passing an extra command-line
+flag to the compiler.
+
+*** [[http://dl.acm.org/authorize?N29930][Stream fusion, to completeness]]
+    
+-  Oleg Kiselyov
+-  Aggelos Biboudis
+-  Nick Palladinos
+-  Yannis Smaragdakis
+  
+Stream processing is mainstream (again): Widely-used stream libraries
+are now available for virtually all modern OO and functional
+languages, from Java to C# to Scala to OCaml to Haskell. Yet
+expressivity and performance are still lacking. For instance, the
+popular, well-optimized Java 8 streams do not support the zip operator
+and are still an order of magnitude slower than hand-written loops.
+
+We present the first approach that represents the full generality of
+stream processing and eliminates overheads, via the use of staging. It
+is based on an unusually rich semantic model of stream interaction. We
+support any combination of zipping, nesting (or flat-mapping),
+sub-ranging, filtering, mapping—of finite or infinite streams. Our
+model captures idiosyncrasies that a programmer uses in optimizing
+stream pipelines, such as rate differences and the choice of a "for"
+vs. "while" loops. Our approach delivers hand-written–like code, but
+automatically. It explicitly avoids the reliance on black-box
+optimizers and sufficiently-smart compilers, offering highest,
+guaranteed and portable performance.
+
+Our approach relies on high-level concepts that are then readily
+mapped into an implementation. Accordingly, we have two distinct
+implementations: an OCaml stream library, staged via MetaOCaml, and a
+Scala library for the JVM, staged via LMS. In both cases, we derive
+libraries richer and simultaneously many tens of times faster than
+past work. We greatly exceed in performance the standard stream
+libraries available in Java, Scala and OCaml, including the
+well-optimized Java 8 streams.
+
+
+*** TODO [[http://dl.acm.org/authorize?N29931][Rigorous floating-point mixed-precision tuning]]
+
+-  Wei-Fan Chiang
+-  Mark Baranowski
+-  Ian Briggs
+-  Alexey Solovyev
+-  Ganesh Gopalakrishnan
+-  Zvonimir Rakamarić
+  
+Virtually all real-valued computations are carried out using
+floating-point data types and operations. The precision of these data
+types must be set with the goals of reducing the overall round-off
+error, but also emphasizing performance improvements. Often, a
+mixed-precision allocation achieves this optimum; unfortunately, there
+are no techniques available to compute such allocations and
+conservatively meet a given error target across all program inputs. In
+this work, we present a rigorous approach to precision allocation
+based on formal analysis via Symbolic Taylor Expansions, and error
+analysis based on interval functions. This approach is implemented in
+an automated tool called FPTuner that generates and solves a
+quadratically constrained quadratic program to obtain a
+precision-annotated version of the given expression. FPTuner
+automatically introduces all the requisite precision up and down
+casting operations. It also allows users to flexibly control precision
+allocation using constraints to cap the number of high precision
+operators as well as group operators to allocate the same precision to
+facilitate vectorization. We evaluate FPTuner by tuning several
+benchmarks and measuring the proportion of lower precision operators
+allocated as we increase the error threshold. We also measure the
+reduction in energy consumption resulting from executing
+mixed-precision tuned code on a real hardware platform. We observe
+significant energy savings in response to mixed-precision tuning, but
+also observe situations where unexpected compiler behaviors thwart
+intended optimizations.
+
+
+** SESSION: Program Analysis
+
+*** [[http://dl.acm.org/authorize?N29932][Relational cost analysis]]
+
+-  Ezgi Çiçek
+-  Gilles Barthe
+-  Marco Gaboardi
+-  Deepak Garg
+-  Jan Hoffmann
+  
+Establishing quantitative bounds on the execution cost of programs is
+essential in many areas of computer science such as complexity
+analysis, compiler optimizations, security and privacy. Techniques
+based on program analysis, type systems and abstract interpretation
+are well-studied, but methods for analyzing how the execution costs of
+two programs compare to each other have not received
+attention. Naively combining the worst and best case execution costs
+of the two programs does not work well in many cases because such
+analysis forgets the similarities between the programs or the inputs.
+
+In this work, we propose a relational cost analysis technique that is
+capable of establishing precise bounds on the difference in the
+execution cost of two programs by making use of relational properties
+of programs and inputs. We develop , a refinement type and effect
+system for a higher-order functional language with recursion and
+subtyping. The key novelty of our technique is the combination of
+relational refinements with two modes of typing—relational
+typing for reasoning about similar computations/inputs and unary
+typing for reasoning about unrelated computations/inputs. This
+combination allows us to analyze the execution cost difference of two
+programs more precisely than a naive non-relational approach.
+
+We prove our type system sound using a semantic model based on
+step-indexed unary and binary logical relations accounting for
+non-relational and relational reasoning principles with their
+respective costs. We demonstrate the precision and generality of our
+technique through examples.
+
+*** [[http://dl.acm.org/authorize?N29933][Contract-based resource verification for higher-order functions with memoization]]
+
+-  Ravichandhran Madhavan
+-  Sumith Kulal
+-  Viktor Kuncak
+  
+We present a new approach for specifying and verifying resource
+utilization of higher-order functional programs that use lazy
+evaluation and memoization. In our approach, users can specify the
+desired resource bound as templates with numerical holes e.g. as steps
+≤ ? * size(l) + ? in the contracts of functions. They can also
+express invariants necessary for establishing the bounds that may
+depend on the state of memoization. Our approach operates in two
+phases: first generating an instrumented first-order program that
+accurately models the higher-order control flow and the effects of
+memoization on resources using sets, algebraic datatypes and mutual
+recursion, and then verifying the contracts of the first-order program
+by producing verification conditions of the form ∃ ∀
+using an extended assume/guarantee reasoning. We use our approach to
+verify precise bounds on resources such as evaluation steps and number
+of heap-allocated objects on 17 challenging data structures and
+algorithms. Our benchmarks, comprising of 5K lines of functional Scala
+code, include lazy mergesort, Okasaki's real-time queue and
+deque data structures that rely on aliasing of references to
+first-class functions; lazy data structures based on numerical
+representations such as the conqueue data structure of Scala's
+data-parallel library, cyclic streams, as well as dynamic programming
+algorithms such as knapsack and Viterbi. Our evaluations show that
+when averaged over all benchmarks the actual runtime resource
+consumption is 80% of the value inferred by our tool when estimating
+the number of evaluation steps, and is 88% for the number of
+heap-allocated objects.
+
+*** [[http://dl.acm.org/authorize?N29934][Context-sensitive data-dependence analysis via linear conjunctive language reachability]]
+
+-  Qirun Zhang
+-  Zhendong Su
+
+Many program analysis problems can be formulated as graph reachability
+problems. In the literature, context-free language (CFL) reachability
+has been the most popular formulation and can be computed in subcubic
+time. The context-sensitive data-dependence analysis is a fundamental
+abstraction that can express a broad range of program analysis
+problems. It essentially describes an interleaved matched-parenthesis
+language reachability problem. The language is not context-free, and
+the problem is well-known to be undecidable. In practice, many program
+analyses adopt CFL-reachability to exactly model the matched
+parentheses for either context-sensitivity or structure-transmitted
+data-dependence, but not both. Thus, the CFL-reachability formulation
+for context-sensitive data-dependence analysis is inherently an
+approximation.
+
+To support more precise and scalable analyses, this paper introduces
+linear conjunctive language (LCL) reachability, a new, expressive
+class of graph reachability. LCL not only contains the interleaved
+matched-parenthesis language, but is also closed under all
+set-theoretic operations. Given a graph with n nodes and m edges, we
+propose an O(mn) time approximation algorithm for solving all-pairs
+LCL-reachability, which is asymptotically better than known
+CFL-reachability algorithms. Our formulation and algorithm offer a new
+perspective on attacking the aforementioned undecidable problem
+— the LCL-reachability formulation is exact, while the
+LCL-reachability algorithm yields a sound approximation. We have
+applied the LCL-reachability framework to two existing client
+analyses. The experimental results show that the LCL-reachability
+framework is both more precise and scalable than the traditional
+CFL-reachability framework. This paper opens up the opportunity to
+exploit LCL-reachability in program analysis.
+
+*** [[http://dl.acm.org/authorize?N29945][Towards automatic resource bound analysis for OCaml]]
+
+-  Jan Hoffmann
+-  Ankush Das
+-  Shu-Chun Weng
+  
+This article presents a resource analysis system for OCaml
+programs. The system automatically derives worst-case resource bounds
+for higher-order polymorphic programs with user-defined inductive
+types. The technique is parametric in the resource and can derive
+bounds for time, memory allocations and energy usage. The derived
+bounds are multivariate resource polynomials which are functions of
+different size parameters that depend on the standard OCaml
+types. Bound inference is fully automatic and reduced to a linear
+optimization problem that is passed to an off-the-shelf LP
+solver. Technically, the analysis system is based on a novel
+multivariate automatic amortized resource analysis (AARA). It builds
+on existing work on linear AARA for higher-order programs with
+user-defined inductive types and on multivariate AARA for first-order
+programs with built-in lists and binary trees. This is the first
+amortized analysis, that automatically derives polynomial bounds for
+higher-order functions and polynomial bounds that depend on
+user-defined inductive types. Moreover, the analysis handles a limited
+form of side effects and even outperforms the linear bound inference
+of previous systems. At the same time, it preserves the expressivity
+and efficiency of existing AARA techniques. The practicality of the
+analysis system is demonstrated with an implementation and integration
+with Inria's OCaml compiler. The implementation is used to
+automatically derive resource bounds for 411 functions and 6018 lines
+of code derived from OCaml libraries, the CompCert compiler, and
+implementations of textbook algorithms. In a case study, the system
+infers bounds on the number of queries that are sent by OCaml programs
+to DynamoDB, a commercial NoSQL cloud database service.
+
+** SESSION: Type Systems 2
+
+*** [[http://dl.acm.org/authorize?N29946][Deciding equivalence with sums and the empty type]]
+
+-  Gabriel Scherer
+ 
+The logical technique of focusing can be applied to the Î»-calculus;
+  in a simple type system with atomic types and negative type formers
+  (functions, products, the unit type), its normal forms coincide with
+  βη-normal forms. Introducing a saturation phase gives a notion of
+  quasi-normal forms in presence of positive types (sum types and the
+  empty type). This rich structure let us prove the decidability of
+  βη-equivalence in presence of the empty type, the fact that it
+  coincides with contextual equivalence, and with set-theoretic
+  equality in all finite models.
+
+
+*** [[http://dl.acm.org/authorize?N29947][The exp-log normal form of types: decomposing extensional equality and representing terms compactly]]
+
+-  Danko Ilik
+  
+Lambda calculi with algebraic data types lie at the core of functional
+programming languages and proof assistants, but conceal at least two
+fundamental theoretical problems already in the presence of the
+simplest non-trivial data type, the sum type. First, we do not know of
+an explicit and implemented algorithm for deciding the
+beta-eta-equality of terms---and this in spite of the first
+decidability results proven two decades ago. Second, it is not clear
+how to decide when two types are essentially the same,
+i.e. isomorphic, in spite of the meta-theoretic results on
+decidability of the isomorphism.
+
+In this paper, we present the exp-log normal form of types---derived
+from the representation of exponential polynomials via the unary
+exponential and logarithmic functions---that any type built from
+arrows, products, and sums, can be isomorphically mapped to. The type
+normal form can be used as a simple heuristic for deciding type
+isomorphism, thanks to the fact that it is a systematic application of
+the high-school identities.
+
+We then show that the type normal form allows to reduce the standard
+beta-eta equational theory of the lambda calculus to a specialized
+version of itself, while preserving completeness of the equality on
+terms.
+
+We end by describing an alternative representation of normal terms of
+the lambda calculus with sums, together with a Coq-implemented
+converter into/from our new term calculus. The difference with the
+only other previously implemented heuristic for deciding interesting
+instances of eta-equality by Balat, Di Cosmo, and Fiore, is that we
+exploits the type information of terms substantially and this often
+allows us to obtain a canonical representation of terms without
+performing a sophisticated term analyses.
+
+*** [[http://dl.acm.org/authorize?N29948][Contextual isomorphisms]]
+
+-  Paul Blain Levy
+  
+What is the right notion of "isomorphism" between types, in a simple
+type theory? The traditional answer is: a pair of terms that are
+inverse up to a specified congruence. We firstly argue that, in the
+presence of effects, this answer is too liberal and needs to be
+restricted, using Führmann's notion of thunkability in the
+case of value types (as in call-by-value), or using
+Munch-Maccagnoni's notion of linearity in the case of
+computation types (as in call-by-name). Yet that leaves us with
+different notions of isomorphism for different kinds of type.
+
+This situation is resolved by means of a new notion of
+"contextual" isomorphism (or morphism), analogous at
+the level of types to contextual equivalence of terms. A contextual
+morphism is a way of replacing one type with the other wherever it may
+occur in a judgement, in a way that is preserved by the action of any
+term with holes. For types of pure Î»-calculus, we show that a
+contextual morphism corresponds to a traditional isomorphism. For
+value types, a contextual morphism corresponds to a thunkable
+isomorphism, and for computation types, to a linear isomorphism.
+
+*** [[http://dl.acm.org/authorize?N29949][Typed self-evaluation via intensional type functions]]
+
+-  Matt Brown
+-  Jens Palsberg
+
+Many popular languages have a self-interpreter, that is, an
+interpreter for the language written in itself. So far, work on
+polymorphically-typed self-interpreters has concentrated on
+self-recognizers that merely recover a program from its
+representation. A larger and until now unsolved challenge is to
+implement a polymorphically-typed self-evaluator that evaluates the
+represented program and produces a representation of the result. We
+present Fωµi, the first λ-calculus that supports a
+polymorphically-typed self-evaluator. Our calculus extends Fω with
+recursive types and intensional type functions and has decidable type
+checking. Our key innovation is a novel implementation of type
+equality proofs that enables us to define a versatile representation
+of programs. Our results establish a new category of languages that
+can support polymorphically-typed self-evaluators.
+
+** SESSION: Concurrency 2
+
+*** [[http://dl.acm.org/authorize?N29940][Mixed-size concurrency: ARM, POWER, C/C++11, and SC]]
+
+-  Shaked Flur
+-  Susmit Sarkar
+-  Christopher Pulte
+-  Kyndylan Nienhuis
+-  Luc Maranget
+-  Kathryn E. Gray
+-  Ali Sezgin
+-  Mark Batty
+-  Peter Sewell
+  
+Previous work on the semantics of relaxed shared-memory concurrency
+has only considered the case in which each load reads the data of
+exactly one store. In practice, however, multiprocessors support
+mixed-size accesses, and these are used by systems software and (to
+some degree) exposed at the C/C++ language level. A semantic
+foundation for software, therefore, has to address them.
+
+We investigate the mixed-size behaviour of ARMv8 and IBM POWER
+architectures and implementations: by experiment, by developing
+semantic models, by testing the correspondence between these, and by
+discussion with ARM and IBM staff. This turns out to be surprisingly
+subtle, and on the way we have to revisit the fundamental concepts of
+coherence and sequential consistency, which change in this setting. In
+particular, we show that adding a memory barrier between each
+instruction does not restore sequential consistency. We go on to
+extend the C/C++11 model to support non-atomic mixed-size memory
+accesses.
+
+This is a necessary step towards semantics for real-world
+shared-memory concurrent code, beyond litmus tests.
+
+*** [[http://dl.acm.org/authorize?N29941][Dynamic race detection for C++11]]
+
+-  Christopher Lidbury
+-  Alastair F. Donaldson
+  
+The intricate rules for memory ordering and synchronisation associated
+with the C/C++11 memory model mean that data races can be difficult to
+eliminate from concurrent programs. Dynamic data race analysis can
+pinpoint races in large and complex applications, but the
+state-of-the-art ThreadSanitizer (tsan) tool for C/C++ considers only
+sequentially consistent program executions, and does not correctly
+model synchronisation between C/C++11 atomic operations. We present a
+scalable dynamic data race analysis for C/C++11 that correctly
+captures C/C++11 synchronisation, and uses instrumentation to support
+exploration of a class of non sequentially consistent executions. We
+concisely define the memory model fragment captured by our
+instrumentation via a restricted axiomatic semantics, and show that
+the axiomatic semantics permits exactly those executions explored by
+our instrumentation. We have implemented our analysis in tsan, and
+evaluate its effectiveness on benchmark programs, enabling a
+comparison with the CDSChecker tool, and on two large and highly
+concurrent applications: the Firefox and Chromium web browsers. Our
+results show that our method can detect races that are beyond the
+scope of the original tsan tool, and that the overhead associated with
+applying our enhanced instrumentation to large applications is
+tolerable.
+
+*** [[http://dl.acm.org/authorize?N29942][Serializability for eventual consistency: criterion, analysis, and applications]]
+
+-  Lucas Brutschy
+-  Dimitar Dimitrov
+-  Peter Müller
+-  Martin Vechev
+
+Developing and reasoning about systems using eventually consistent
+data stores is a difficult challenge due to the presence of unexpected
+behaviors that do not occur under sequential consistency. A
+fundamental problem in this setting is to identify a correctness
+criterion that precisely captures intended application behaviors yet
+is generic enough to be applicable to a wide range of applications.
+
+In this paper, we present such a criterion. More precisely, we
+generalize conflict serializability to the setting of eventual
+consistency. Our generalization is based on a novel dependency model
+that incorporates two powerful algebraic properties: commutativity and
+absorption. These properties enable precise reasoning about programs
+that employ high-level replicated data types, common in modern
+systems. To apply our criterion in practice, we also developed a
+dynamic analysis algorithm and a tool that checks whether a given
+program execution is serializable.
+
+We performed a thorough experimental evaluation on two real-world use
+cases: debugging cloud-backed mobile applications and implementing
+clients of a popular eventually consistent key-value store. Our
+experimental results indicate that our criterion reveals harmful
+synchronization problems in applications, is more effective at finding
+them than prior approaches, and can be used for the development of
+practical, eventually consistent applications.
+
+*** [[http://dl.acm.org/authorize?N29943][Thread modularity at many levels: a pearl in compositional verification]]
+
+-  Jochen Hoenicke
+-  Rupak Majumdar
+-  Andreas Podelski
+
+A thread-modular proof for the correctness of a concurrent program is
+based on an inductive and interference-free annotation of each
+thread. It is well-known that the corresponding proof system is not
+complete (unless one adds auxiliary variables). We describe a
+hierarchy of proof systems where each level k corresponds to a
+generalized notion of thread modularity (level 1 corresponds to the
+original notion). Each level is strictly more expressive than the
+previous. Further, each level precisely captures programs that can be
+proved using uniform Ashcroft invariants with k universal
+quantifiers. We demonstrate the usefulness of the hierarchy by giving
+a compositional proof of the Mach shootdown algorithm for TLB
+consistency. We show a proof at level 2 that shows the algorithm is
+correct for an arbitrary number of CPUs. However, there is no proof
+for the algorithm at level 1 which does not involve auxiliary state.
+
+** SESSION: Functional Programming with Effects
+
+*** [[http://dl.acm.org/authorize?N29944][Type directed compilation of row-typed algebraic effects]]
+
+-  Daan Leijen
+  
+Algebraic effect handlers, introduced by Plotkin and Power in 2002,
+are recently gaining in popularity as a purely functional approach to
+modeling effects. In this article, we give a full overview of
+practical algebraic effects in the context of a compiled
+implementation in the Koka language. In particular, we show how
+algebraic effects generalize over common constructs like exception
+handling, state, iterators and async-await. We give an effective type
+inference algorithm based on extensible effect rows using scoped
+labels, and a direct operational semantics. Finally, we show an
+efficient compilation scheme to common runtime platforms (like
+JavaScript) using a type directed selective CPS translation.
+
+
+*** [[http://dl.acm.org/authorize?N29055][Do be do be do]]
+
+-  Sam Lindley
+-  Conor McBride
+-  Craig McLaughlin
+  
+We explore the design and implementation of Frank, a strict functional
+programming language with a bidirectional effect type system designed
+from the ground up around a novel variant of Plotkin and Pretnar's
+effect handler abstraction.
+
+Effect handlers provide an abstraction for modular effectful
+programming: a handler acts as an interpreter for a collection of
+commands whose interfaces are statically tracked by the type
+system. However, Frank eliminates the need for an additional effect
+handling construct by generalising the basic mechanism of functional
+abstraction itself. A function is simply the special case of a Frank
+operator that interprets no commands. Moreover, Frank's operators can
+be multihandlers which simultaneously interpret commands from several
+sources at once, without disturbing the direct style of functional
+programming with values.
+
+Effect typing in Frank employs a novel form of effect polymorphism
+which avoid mentioning effect variables in source code. This is
+achieved by propagating an ambient ability inwards, rather than
+accumulating unions of potential effects outwards.
+
+We introduce Frank by example, and then give a formal account of the
+Frank type system and its semantics. We introduce Core Frank by
+elaborating Frank operators into functions, case expressions, and
+unary handlers, and then give a sound small-step operational semantics
+for Core Frank.
+
+Programming with effects and handlers is in its infancy. We contribute
+an exploration of future possibilities, particularly in combination
+with other forms of rich type system.
+
+*** [[http://dl.acm.org/authorize?N29056][Dijkstra monads for free]]
+
+-  Danel Ahman
+-  Cătălin Hriţcu
+-  Kenji Maillard
+-  Guido Martínez
+-  Gordon Plotkin
+-  Jonathan Protzenko
+-  Aseem Rastogi
+-  Nikhil Swamy
+  
+Dijkstra monads enable a dependent type theory to be enhanced with
+support for specifying and verifying effectful code via weakest
+preconditions. Together with their closely related counterparts, Hoare
+monads, they provide the basis on which verification tools like F*,
+Hoare Type Theory (HTT), and Ynot are built. We show that Dijkstra
+monads can be derived "for free" by applying a
+continuation-passing style (CPS) translation to the standard monadic
+definitions of the underlying computational effects. Automatically
+deriving Dijkstra monads in this way provides a
+correct-by-construction and efficient way of reasoning about
+user-defined effects in dependent type theories. We demonstrate these
+ideas in EMF*, a new dependently typed calculus, validating it via
+both formal proof and a prototype implementation within F*. Besides
+equipping F* with a more uniform and extensible effect system, EMF*
+enables a novel mixture of intrinsic and extrinsic proofs within F*.
+  
+*** [[http://dl.acm.org/authorize?N29057][Stateful manifest contracts]]
+
+-  Taro Sekiyama
+-  Atsushi Igarashi
+  
+This paper studies hybrid contract verification for an imperative
+  higher-order language based on a so-called manifest contract
+  system. In manifest contract systems, contracts are part of static
+  types and contract verification is hybrid in the sense that some
+  contracts are statically verified, typically by subtyping, but
+  others are dynamically by casts. It is, however, not trivial to
+  extend existing manifest contract systems, which have been designed
+  mostly for pure functional languages, to imperative features, mainly
+  because of the lack of flow-sensitivity, which should be taken into
+  account in verifying imperative programs statically.
+
+We develop an imperative higher-order manifest contract system Î»refH
+for flow-sensitive hybrid contract verification. We introduce a
+computational variant of Nanevski et al's Hoare types, which
+are flow-sensitive types to represent pre- and postconditions of
+impure computation. Our Hoare types are computational in the sense
+that pre- and postconditions are given by Booleans in the same
+language as programs so that they are dynamically verifiable. Î»refH
+also supports refinement types as in existing manifest contract
+systems to describe flow-insensitive, state-independent contracts of
+pure computation. While it is desirable that any—possibly
+state-manipulating—predicate can be used in contracts, abuse
+of stateful operations will break the system. To control stateful
+operations in contracts, we introduce a region-based effect system,
+which allows contracts in refinement types and computational Hoare
+types to manipulate states, as long as they are observationally pure
+and read-only, respectively. We show that dynamic contract checking in
+our calculus is consistent with static typing in the sense that the
+final result obtained without dynamic contract violations satisfies
+contracts in its static type. It in particular means that the state
+after stateful computations satisfies their postconditions.
+
+As in some of prior manifest contract systems, static contract
+verification in this work is "post facto," that is, we
+first define our manifest contract system so that all contracts are
+checked at run time, formalize conditions when dynamic checks can be
+removed safely, and show that programs with and without such removable
+checks are contextually equivalent. We also apply the idea of post
+facto verification to region-based local reasoning, inspired by the
+frame rule of Separation Logic.
+
+
+** SESSION: Semantic Foundations
+
+*** [[http://dl.acm.org/authorize?N29058][A semantic account of metric preservation]]
+
+-  Arthur Azevedo de Amorim
+-  Marco Gaboardi
+-  Justin Hsu
+-  Shin-ya Katsumata
+-  Ikram Cherigui
+  
+Program sensitivity measures how robust a program is to small changes
+in its input, and is a fundamental notion in domains ranging from
+differential privacy to cyber-physical systems. A natural way to
+formalize program sensitivity is in terms of metrics on the input and
+output spaces, requiring that an r-sensitive function map inputs that
+are at distance d to outputs that are at distance at most r ·
+d. Program sensitivity is thus an analogue of Lipschitz continuity for
+programs.
+
+Reed and Pierce introduced Fuzz, a functional language with a linear
+type system that can express program sensitivity. They show soundness
+operationally, in the form of a metric preservation property. Inspired
+by their work, we study program sensitivity and metric preservation
+from a denotational point of view. In particular, we introduce metric
+CPOs, a novel semantic structure for reasoning about computation on
+metric spaces, by endowing CPOs with a compatible notion of
+distance. This structure is useful for reasoning about metric
+properties of programs, and specifically about program sensitivity. We
+demonstrate metric CPOs by giving a model for the deterministic
+fragment of Fuzz.
+  
+*** [[http://dl.acm.org/authorize?N29059][Cantor meets scott: semantic foundations for probabilistic networks]]
+
+-  Steffen Smolka
+-  Praveen Kumar
+-  Nate Foster
+-  Dexter Kozen
+-  Alexandra Silva
+
+ProbNetKAT is a probabilistic extension of NetKAT with a denotational
+semantics based on Markov kernels. The language is expressive enough
+to generate continuous distributions, which raises the question of how
+to compute effectively in the language. This paper gives an new
+characterization of ProbNetKAT's semantics using domain theory, which
+provides the foundation needed to build a practical implementation. We
+show how to use the semantics to approximate the behavior of arbitrary
+ProbNetKAT programs using distributions with finite support. We
+develop a prototype implementation and show how to use it to solve a
+variety of problems including characterizing the expected congestion
+induced by different routing schemes and reasoning probabilistically
+about reachability in a network.
+
+** SESSION: Logic and Programming
+
+*** NOT [[http://dl.acm.org/authorize?N29050][Genesis: synthesizing forwarding tables in multi-tenant networks]]
+
+-  Kausik Subramanian
+-  Loris D'Antoni
+-  Aditya Akella
+  
+Operators in multi-tenant cloud datacenters require support for
+diverse and complex end-to-end policies, such as, reachability,
+middlebox traversals, isolation, traffic engineering, and network
+resource management. We present Genesis, a datacenter network
+management system which allows policies to be specified in a
+declarative manner without explicitly programming the network data
+plane. Genesis tackles the problem of enforcing policies by
+synthesizing switch forwarding tables. It uses the formal foundations
+of constraint solving in combination with fast off-the-shelf SMT
+solvers. To improve synthesis performance, Genesis incorporates a
+novel search strategy that uses regular expressions to specify
+properties that leverage the structure of datacenter networks, and a
+divide-and-conquer synthesis procedure which exploits the structure of
+policy relationships. We have prototyped Genesis, and conducted
+experiments with a variety of workloads on real-world topologies to
+demonstrate its performance.
+
+
+*** [[http://dl.acm.org/authorize?N29051][LOIS: syntax and semantics]]
+
+-  Eryk Kopczyński
+-  Szymon Toruńczyk
+  
+We present the semantics of an imperative programming language
+  called LOIS (Looping Over Infinite Sets), which allows iterating
+  through certain infinite sets, in finite time. Our semantics
+  intuitively correspond to execution of infinitely many threads in
+  parallel. This allows to merge the power of abstract mathematical
+  constructions into imperative programming. Infinite sets are
+  internally represented using first order formulas over some
+  underlying logical structure, and SMT solvers are employed to
+  evaluate programs.
+
+** SESSION: Verification and Synthesis
+
+*** [[http://dl.acm.org/authorize?N29052][Component-based synthesis for complex APIs]]
+
+-  Yu Feng
+-  Ruben Martins
+-  Yuepeng Wang
+-  Isil Dillig
+-  Thomas W. Reps
+
+Component-based approaches to program synthesis assemble programs from
+a database of existing components, such as methods provided by an
+API. In this paper, we present a novel type-directed algorithm for
+component-based synthesis. The key novelty of our approach is the use
+of a compact Petri-net representation to model relationships between
+methods in an API. Given a target method signature S, our approach
+performs reachability analysis on the underlying Petri-net model to
+identify sequences of method calls that could be used to synthesize an
+implementation of S. The programs synthesized by our algorithm are
+guaranteed to type check and pass all test cases provided by the user.
+
+We have implemented this approach in a tool called SyPet, and used it
+to successfully synthesize real-world programming tasks extracted from
+on-line forums and existing code repositories. We also compare SyPet
+with two state-of-the-art synthesis tools, namely InSynth and
+CodeHint, and demonstrate that SyPet can synthesize more programs in
+less time. Finally, we compare our approach with an alternative
+solution based on hypergraphs and demonstrate its advantages.
+
+*** [[http://dl.acm.org/authorize?N29053][Learning nominal automata]]
+
+-  Joshua Moerman
+-  Matteo Sammartino
+-  Alexandra Silva
+-  Bartek Klin
+-  Michał Szynwelski
+  
+We present an Angluin-style algorithm to learn nominal automata, which
+are acceptors of languages over infinite (structured) alphabets. The
+abstract approach we take allows us to seamlessly extend known
+variations of the algorithm to this new setting. In particular we can
+learn a subclass of nominal non-deterministic automata. An
+implementation using a recently developed Haskell library for nominal
+computation is provided for preliminary experiments.
+
+*** [[http://dl.acm.org/authorize?N29054][On verifying causal consistency]]
+
+-  Ahmed Bouajjani
+-  Constantin Enea
+-  Rachid Guerraoui
+-  Jad Hamza
+  
+Causal consistency is one of the most adopted consistency criteria for
+distributed implementations of data structures. It ensures that
+operations are executed at all sites according to their causal
+precedence. We address the issue of verifying automatically whether
+the executions of an implementation of a data structure are causally
+consistent. We consider two problems: (1) checking whether one single
+execution is causally consistent, which is relevant for developing
+testing and bug finding algorithms, and (2) verifying whether all the
+executions of an implementation are causally consistent.
+
+We show that the first problem is NP-complete. This holds even for the
+read-write memory abstraction, which is a building block of many
+modern distributed systems. Indeed, such systems often store data in
+key-value stores, which are instances of the read-write memory
+abstraction. Moreover, we prove that, surprisingly, the second problem
+is undecidable, and again this holds even for the read-write memory
+abstraction. However, we show that for the read-write memory
+abstraction, these negative results can be circumvented if the
+implementations are data independent, i.e., their behaviors do not
+depend on the data values that are written or read at each moment,
+which is a realistic assumption.
+
+We prove that for data independent implementations, the problem of
+checking the correctness of a single execution w.r.t. the read-write
+memory abstraction is polynomial time. Furthermore, we show that for
+such implementations the set of non-causally consistent executions can
+be represented by means of a finite number of register automata. Using
+these machines as observers (in parallel with the implementation)
+allows to reduce polynomially the problem of checking causal
+consistency to a state reachability problem. This reduction holds
+regardless of the class of programs used for the implementation, of
+the number of read-write variables, and of the used data domain. It
+allows leveraging existing techniques for assertion/reachability
+checking to causal consistency verification. Moreover, for a
+significant class of implementations, we derive from this reduction
+the decidability of verifying causal consistency w.r.t. the read-write
+memory abstraction.
+
+*** [[http://dl.acm.org/authorize?N29065][Complexity verification using guided theorem enumeration]]
+
+-  Akhilesh Srikanth
+-  Burak Sahin
+-  William R. Harris
+  
+Determining if a given program satisfies a given bound on the amount
+of resources that it may use is a fundamental problem with critical
+practical applications. Conventional automatic verifiers for safety
+properties cannot be applied to address this problem directly because
+such verifiers target properties expressed in decidable theories;
+however, many practical bounds are expressed in nonlinear theories,
+which are undecidable.
+
+In this work, we introduce an automatic verification algorithm, CAMPY,
+that determines if a given program P satisfies a given resource bound
+B, which may be expressed using polynomial, exponential, and
+logarithmic terms. The key technical contribution behind our verifier
+is an interpolating theorem prover for non-linear theories that lazily
+learns a sufficiently accurate approximation of non-linear theories by
+selectively grounding theorems of the nonlinear theory that are
+relevant to proving that P satisfies B. To evaluate CAMPY, we
+implemented it to target Java Virtual Machine bytecode. We applied
+CAMPY to verify that over 20 solutions submitted for programming
+problems hosted on popular online coding platforms satisfy or do not
+satisfy expected complexity bounds.
+
+** SESSION: Type Systems 3
+
+*** [[http://dl.acm.org/authorize?N29066][Intersection type calculi of bounded dimension]]
+
+-  Andrej Dudenhefner
+-  Jakob Rehof
+  
+A notion of dimension in intersection typed λ-calculi is
+presented. The dimension of a typed λ-term is given by the minimal
+norm of an elaboration (a proof theoretic decoration) necessary for
+typing the term at its type, and, intuitively, measures intersection
+introduction as a resource.
+
+Bounded-dimensional intersection type calculi are shown to enjoy
+subject reduction, since terms can be elaborated in non-increasing
+norm under β-reduction. We prove that a multiset interpretation
+(corresponding to a non-idempotent and non-linear interpretation of
+intersection) of dimensionality corresponds to the number of
+simultaneous constraints required during search for inhabitants. As a
+consequence, the inhabitation problem is decidable in bounded multiset
+dimension, and it is proven to be EXPSPACE-complete. This result is a
+substantial generalization of inhabitation for the rank 2-fragment,
+yielding a calculus with decidable inhabitation which is independent
+of rank.
+
+Our results give rise to a new criterion (dimensional bound) for
+subclasses of intersection type calculi with a decidable inhabitation
+problem, which is orthogonal to previously known criteria, and which
+should have immediate applications in synthesis. Additionally, we give
+examples of dimensional analysis of fragments of the intersection type
+system, including conservativity over simple types, rank 2-types, and
+normal form typings, and we provide some observations towards
+dimensional analysis of other systems. It is suggested (for future
+work) that our notion of dimension may have semantic interpretations
+in terms of of reduction complexity.
+
+*** [[http://dl.acm.org/authorize?N29067][Type soundness proofs with definitional interpreters]]
+
+-  Nada Amin
+-  Tiark Rompf
+  
+While type soundness proofs are taught in every graduate PL class, the
+gap between realistic languages and what is accessible to formal
+proofs is large. In the case of Scala, it has been shown that its
+formal model, the Dependent Object Types (DOT) calculus, cannot
+simultaneously support key metatheoretic properties such as
+environment narrowing and subtyping transitivity, which are usually
+required for a type soundness proof. Moreover, Scala and many other
+realistic languages lack a general substitution property.
+
+The first contribution of this paper is to demonstrate how type
+soundness proofs for advanced, polymorphic, type systems can be
+carried out with an operational semantics based on high-level,
+definitional interpreters, implemented in Coq. We present the first
+mechanized soundness proofs in this style for System F and several
+extensions, including mutable references. Our proofs use only
+straightforward induction, which is significant, as the combination of
+big-step semantics, mutable references, and polymorphism is commonly
+believed to require coinductive proof techniques.
+
+The second main contribution of this paper is to show how DOT-like
+calculi emerge from straightforward generalizations of the operational
+aspects of F, exposing a rich design space of calculi with
+path-dependent types inbetween System F and DOT, which we dub the
+System D Square.
+
+By working directly on the target language, definitional interpreters
+can focus the design space and expose the invariants that actually
+matter at runtime. Looking at such runtime invariants is an exciting
+new avenue for type system design.
+
+*** TODO [[http://dl.acm.org/authorize?N29068][Computational higher-dimensional type theory]]
+
+-  Carlo Angiuli
+-  Robert Harper
+-  Todd Wilson
+  
+Formal constructive type theory has proved to be an effective language
+for mechanized proof. By avoiding non-constructive principles, such as
+the law of the excluded middle, type theory admits sharper proofs and
+broader interpretations of results. From a computer science
+perspective, interest in type theory arises from its applications to
+programming languages. Standard constructive type theories used in
+mechanization admit computational interpretations based on
+meta-mathematical normalization theorems. These proofs are notoriously
+brittle; any change to the theory potentially invalidates its
+computational meaning. As a case in point, Voevodsky's univalence
+axiom raises questions about the computational meaning of proofs.
+
+We consider the question: Can higher-dimensional type theory be
+construed as a programming language? We answer this question
+affirmatively by providing a direct, deterministic operational
+interpretation for a representative higher-dimensional dependent type
+theory with higher inductive types and an instance of
+univalence. Rather than being a formal type theory defined by rules,
+it is instead a computational type theory in the sense of Martin-Löf's
+meaning explanations and of the NuPRL semantics. The definition of the
+type theory starts with programs; types are specifications of program
+behavior. The main result is a canonicity theorem stating that closed
+programs of boolean type evaluate to true or false.
+
+
+*** [[http://dl.acm.org/authorize?N29069][Type systems as macros]]
+
+-  Stephen Chang
+-  Alex Knauth
+-  Ben Greenman
+  
+We present Turnstile, a metalanguage for creating typed embedded
+languages. To implement the type system, programmers write type
+checking rules resembling traditional judgment syntax. To implement
+the semantics, they incorporate elaborations into these
+rules. Turnstile critically depends on the idea of linguistic
+reuse. It exploits a macro system in a novel way to simultaneously
+type check and rewrite a surface program into a target
+language. Reusing a macro system also yields modular implementations
+whose rules may be mixed and matched to create other
+languages. Combined with typical compiler and runtime reuse, Turnstile
+produces performant typed embedded languages with little effort.
+
+** SESSION: Concurrency 3
+
+*** [[http://dl.acm.org/authorize?N29060][Parallel functional arrays]]
+
+-  Ananya Kumar
+-  Guy E. Blelloch
+-  Robert Harper
+
+The goal of this paper is to develop a form of functional arrays
+(sequences) that are as efficient as imperative arrays, can be used in
+parallel, and have well defined cost-semantics. The key idea is to
+consider sequences with functional value semantics but non-functional
+cost semantics. Because the value semantics is functional, "updating"
+a sequence returns a new sequence. We allow operations on "older"
+sequences (called interior sequences) to be more expensive than
+operations on the "most recent" sequences (called leaf sequences).
+
+We embed sequences in a language supporting fork-join parallelism. Due
+to the parallelism, operations can be interleaved
+non-deterministically, and, in conjunction with the different cost for
+interior and leaf sequences, this can lead to non-deterministic costs
+for a program. Consequently the costs of programs can be difficult to
+analyze. The main result is the derivation of a deterministic cost
+dynamics which makes analyzing the costs easier. The theorems are not
+specific to sequences and can be applied to other data types with
+different costs for operating on interior and leaf versions.
+
+We present a wait-free concurrent implementation of sequences that
+requires constant work for accessing and updating leaf sequences, and
+logarithmic work for accessing and linear work for updating interior
+sequences. We sketch a proof of correctness for the sequence
+implementation. The key advantages of the present approach compared to
+current approaches is that our implementation requires no changes to
+existing programming languages, supports nested parallelism, and has
+well defined cost semantics. At the same time, it allows for
+functional implementations of algorithms such as depth-first search
+with the same asymptotic complexity as imperative implementations.
+
+
+*** [[http://dl.acm.org/authorize?N29061][A short counterexample property for safety and liveness verification of fault-tolerant distributed algorithms]]
+
+-  Igor Konnov
+-  Marijana Lazić
+-  Helmut Veith
+-  Josef Widder
+ 
+Distributed algorithms have many mission-critical applications ranging
+from embedded systems and replicated databases to cloud computing. Due
+to asynchronous communication, process faults, or network failures,
+these algorithms are difficult to design and verify. Many algorithms
+achieve fault tolerance by using threshold guards that, for instance,
+ensure that a process waits until it has received an acknowledgment
+from a majority of its peers. Consequently, domain-specific languages
+for fault-tolerant distributed systems offer language support for
+threshold guards.
+
+We introduce an automated method for model checking of safety and
+liveness of threshold-guarded distributed algorithms in systems where
+the number of processes and the fraction of faulty processes are
+parameters. Our method is based on a short counterexample property: if
+a distributed algorithm violates a temporal specification (in a
+fragment of LTL), then there is a counterexample whose length is
+bounded and independent of the parameters. We prove this property by
+(i) characterizing executions depending on the structure of the
+temporal formula, and (ii) using commutativity of transitions to
+accelerate and shorten executions. We extended the ByMC toolset
+(Byzantine Model Checker) with our technique, and verified liveness
+and safety of 10 prominent fault-tolerant distributed algorithms, most
+of which were out of reach for existing techniques.
+ 
+*** [[http://dl.acm.org/authorize?N29062][Analyzing divergence in bisimulation semantics]]
+
+-  Xinxin Liu
+-  Tingting Yu
+-  Wenhui Zhang
+  
+Some bisimulation based abstract equivalence relations may equate
+divergent systems with non-divergent ones, examples including weak
+bisimulation equivalence and branching bisimulation equivalence. Thus
+extra efforts are needed to analyze divergence for the compared
+systems. In this paper we propose a new method for analyzing
+divergence in bisimulation semantics, which relies only on simple
+observations of individual transitions. We show that this method can
+verify several typical divergence preserving bisimulation equivalences
+including two well-known ones. As an application case study, we use
+the proposed method to verify the HSY collision stack to draw the
+conclusion that the stack implementation is correct in terms of
+linearizability with lock-free progress condition.
+
+*** [[http://dl.acm.org/authorize?N29063][Fencing off go: liveness and safety for channel-based programming]]
+
+-  Julien Lange
+-  Nicholas Ng
+-  Bernardo Toninho
+-  Nobuko Yoshida
+  
+Go is a production-level statically typed programming language whose
+  design features explicit message-passing primitives and lightweight
+  threads, enabling (and encouraging) programmers to develop
+  concurrent systems where components interact through communication
+  more so than by lock-based shared memory concurrency. Go can only
+  detect global deadlocks at runtime, but provides no compile-time
+  protection against all too common communication mis-matches or
+  partial deadlocks. This work develops a static verification
+  framework for liveness and safety in Go programs, able to detect
+  communication errors and partial deadlocks in a general class of
+  realistic concurrent programs, including those with dynamic channel
+  creation, unbounded thread creation and recursion. Our approach
+  infers from a Go program a faithful representation of its
+  communication patterns as a behavioural type. By checking a
+  syntactic restriction on channel usage, dubbed fencing, we ensure
+  that programs are made up of finitely many different communication
+  patterns that may be repeated infinitely many times. This
+  restriction allows us to implement a decision procedure for liveness
+  and safety in types which in turn statically ensures liveness and
+  safety in Go programs. We have implemented a type inference and
+  decision procedures in a tool-chain and tested it against publicly
+  available Go programs.
+
+** SESSION: Gradual Typing and Contracts
+
+*** [[http://dl.acm.org/authorize?N29064][Big types in little runtime: open-world soundness and collaborative blame for gradual type systems]]
+
+-  Michael M. Vitousek
+-  Cameron Swords
+-  Jeremy G. Siek
+
+Gradual typing combines static and dynamic typing in the same
+  language, offering programmers the error detection and strong
+  guarantees of static types and the rapid prototyping and flexible
+  programming idioms of dynamic types. Many gradually typed languages
+  are implemented by translation into an untyped target language
+  (e.g., Typed Clojure, TypeScript, Gradualtalk, and Reticulated
+  Python). For such languages, it is desirable to support arbitrary
+  interaction between translated code and legacy code in the untyped
+  language while maintaining the type soundness of the translated
+  code. In this paper we formalize this goal in the form of the
+  open-world soundness criterion. We discuss why it is challenging to
+  achieve open-world soundness using the traditional proxy-based
+  approach for higher-order casts. However, the transient design
+  satisfies open-world soundness. Indeed, we present a formal
+  semantics for the transient design and prove that our semantics
+  satisfies open-world soundness. In this paper we also solve a
+  challenging problem for the transient design: how to provide blame
+  tracking without proxies. We define a semantics for blame and prove
+  the Blame Theorem. We also prove that the Gradual Guarantee holds
+  for this system, ensuring that programs can be evolved freely
+  between static and dynamic typing. Finally, we demonstrate that the
+  runtime overhead of the transient approach is low in the context of
+  Reticulated Python, an implementation of gradual typing for Python.
+
+
+*** TODO [[http://dl.acm.org/authorize?N29075][Gradual refinement types]]
+
+-  Nico Lehmann
+-  Éric Tanter
+  
+Refinement types are an effective language-based verification
+  technique. However, as any expressive typing discipline, its
+  strength is its weakness, imposing sometimes undesired
+  rigidity. Guided by abstract interpretation, we extend the gradual
+  typing agenda and develop the notion of gradual refinement types,
+  allowing smooth evolution and interoperability between simple types
+  and logically-refined types. In doing so, we address two challenges
+  unexplored in the gradual typing literature: dealing with imprecise
+  logical information, and with dependent function types. The first
+  challenge leads to a crucial notion of locality for refinement
+  formulas, and the second yields novel operators related to type- and
+  term-level substitution, identifying new opportunity for runtime
+  errors in gradual dependently-typed languages. The gradual language
+  we present is type safe, type sound, and satisfies the refined
+  criteria for gradually-typed languages of Siek et al. We also
+  explain how to extend our approach to richer refinement logics,
+  anticipating key challenges to consider.
+
+*** [[http://dl.acm.org/authorize?N29076][Automatically generating the dynamic semantics of gradually typed languages]]
+
+-  Matteo Cimini
+-  Jeremy G. Siek
+  
+Many language designers have adopted gradual typing. However, there
+remains open questions regarding how to gradualize languages. Cimini
+and Siek (2016) created a methodology and algorithm to automatically
+generate the type system of a gradually typed language from a fully
+static version of the language. In this paper, we address the next
+challenge of how to automatically generate the dynamic semantics of
+gradually typed languages. Such languages typically use an
+intermediate language with explicit casts.
+
+Our first result is a methodology for generating the syntax, type
+system, and dynamic semantics of the intermediate language with
+casts. Next, we present an algorithm that formalizes and automates the
+methodology, given a language definition as input. We show that our
+approach is general enough to automatically gradualize several
+languages, including features such as polymorphism, recursive types
+and exceptions. We prove that our algorithm produces languages that
+satisfy the key correctness criteria of gradual typing. Finally, we
+implement the algorithm, generating complete specifications of
+gradually typed languages in lambda-Prolog, including executable
+interpreters.
+
+
+*** [[http://dl.acm.org/authorize?N29077][Sums of uncertainty: refinements go gradual]]
+
+-  Khurram A. Jafery
+-  Joshua Dunfield
+  
+A long-standing shortcoming of statically typed functional languages
+is that type checking does not rule out pattern-matching failures
+(run-time match exceptions). Refinement types distinguish different
+values of datatypes; if a program annotated with refinements passes
+type checking, pattern-matching failures become
+impossible. Unfortunately, refinement is a monolithic property of a
+type, exacerbating the difficulty of adding refinement types to
+nontrivial programs.
+
+Gradual typing has explored how to incrementally move between static
+typing and dynamic typing. We develop a type system of gradual sums
+that combines refinement with imprecision. Then, we develop a
+bidirectional version of the type system, which rules out excessive
+imprecision, and give a type-directed translation to a target language
+with explicit casts. We prove that the static sublanguage cannot have
+match failures, that a well-typed program remains well-typed if its
+type annotations are made less precise, and that making annotations
+less precise causes target programs to fail later. Several of these
+results correspond to criteria for gradual typing given by Siek et
+al. (2015).
+
+** SESSION: Quantum
+
+*** [[http://dl.acm.org/authorize?N29078][Invariants of quantum programs: characterisations and generation]]
+
+-  Mingsheng Ying
+-  Shenggang Ying
+-  Xiaodi Wu
+  
+Program invariant is a fundamental notion widely used in program
+verification and analysis. The aim of this paper is twofold: (i) find
+an appropriate definition of invariants for quantum programs; and (ii)
+develop an effective technique of invariant generation for
+verification and analysis of quantum programs.
+
+Interestingly, the notion of invariant can be defined for quantum
+programs in two different ways -- additive invariants and
+multiplicative invariants -- corresponding to two interpretations of
+implication in a continuous valued logic: the Lukasiewicz implication
+and the Godel implication. It is shown that both of them can be used
+to establish partial correctness of quantum programs.
+
+The problem of generating additive invariants of quantum programs is
+addressed by reducing it to an SDP (Semidefinite Programming)
+problem. This approach is applied with an SDP solver to generate
+invariants of two important quantum algorithms -- quantum walk and
+quantum Metropolis sampling. Our examples show that the generated
+invariants can be used to verify correctness of these algorithms and
+are helpful in optimising quantum Metropolis sampling.
+
+To our knowledge, this paper is the first attempt to define the notion
+of invariant and to develop a method of invariant generation for
+quantum programs.
+
+*** [[http://dl.acm.org/authorize?N29079][The geometry of parallelism: classical, probabilistic, and quantum effects]]
+
+-  Ugo Dal Lago
+-  Claudia Faggian
+-  Benoît Valiron
+-  Akira Yoshimizu
+  
+We introduce a Geometry of Interaction model for higher-order quantum
+computation, and prove its adequacy for a fully fledged quantum
+programming language in which entanglement, duplication, and recursion
+are all available.
+
+This model is an instance of a new framework which captures not only
+quantum but also classical and probabilistic computation. Its main
+feature is the ability to model commutative effects in a parallel
+setting. Our model comes with a multi-token machine, a proof net
+system, and a -style language. Being based on a multi-token machine
+equipped with a memory, it has a concrete nature which makes it well
+suited for building low-level operational descriptions of higher-order
+languages.
+
+*** TODO [[http://dl.acm.org/authorize?N29070][QWIRE: a core language for quantum circuits]]
+
+-  Jennifer Paykin
+-  Robert Rand
+-  Steve Zdancewic
+  
+This paper introduces QWIRE (``choir''), a language for defining
+quantum circuits and an interface for manipulating them inside of an
+arbitrary classical host language. QWIRE is minimal---it contains only
+a few primitives---and sound with respect to the physical properties
+entailed by quantum mechanics. At the same time, QWIRE is expressive
+and highly modular due to its relationship with the host language,
+mirroring the QRAM model of computation that places a quantum computer
+(controlled by circuits) alongside a classical computer (controlled by
+the host language).
+
+We present QWIRE along with its type system and operational semantics,
+which we prove is safe and strongly normalizing whenever the host
+language is. We give circuits a denotational semantics in terms of
+density matrices. Throughout, we investigate examples that demonstrate
+the expressive power of QWIRE, including extensions to the host
+language that (1) expose a general analysis framework for circuits,
+and (2) provide dependent types.
+
+** SESSION: Security and Privacy
+
+*** [[http://dl.acm.org/authorize?N29071][LMS-Verify: abstraction without regret for verified systems programming]]
+
+-  Nada Amin
+-  Tiark Rompf
+  
+Performance critical software is almost always developed in C, as
+programmers do not trust high-level languages to deliver the same
+reliable performance. This is bad because low-level code in unsafe
+languages attracts security vulnerabilities and because development is
+far less productive, with PL advances mostly lost on programmers
+operating under tight performance constraints. High-level languages
+provide memory safety out of the box, but they are deemed too slow and
+unpredictable for serious system software.
+
+Recent years have seen a surge in staging and generative programming:
+the key idea is to use high-level languages and their abstraction
+power as glorified macro systems to compose code fragments in
+first-order, potentially domain-specific, intermediate languages, from
+which fast C can be emitted. But what about security? Since the end
+result is still C code, the safety guarantees of the high-level host
+language are lost.
+
+In this paper, we extend this generative approach to emit ACSL
+specifications along with C code. We demonstrate that staging achieves
+``abstraction without regret'' for verification: we show how
+high-level programming models, in particular higher-order composable
+contracts from dynamic languages, can be used at generation time to
+compose and generate first-order specifications that can be statically
+checked by existing tools. We also show how type classes can
+automatically attach invariants to data types, reducing the need for
+repetitive manual annotations.
+
+We evaluate our system on several case studies that varyingly exercise
+verification of memory safety, overflow safety, and functional
+correctness. We feature an HTTP parser that is (1) fast (2)
+high-level: implemented using staged parser combinators (3) secure:
+with verified memory safety. This result is significant, as input
+parsing is a key attack vector, and vulnerabilities related to HTTP
+parsing have been documented in all widely-used web servers.
+  
+
+*** [[http://dl.acm.org/authorize?N29072][Hypercollecting semantics and its application to static analysis of information flow]]
+
+-  Mounir Assaf
+-  David A. Naumann
+-  Julien Signoles
+-  Éric Totel
+-  Frédéric Tronel
+  
+We show how static analysis for secure information flow can be
+expressed and proved correct entirely within the framework of abstract
+interpretation. The key idea is to define a Galois connection that
+directly approximates the hyperproperty of interest. To enable use of
+such Galois connections, we introduce a fixpoint characterisation of
+hypercollecting semantics, i.e. a "set of sets"
+transformer. This makes it possible to systematically derive static
+analyses for hyperproperties entirely within the calculational
+framework of abstract interpretation. We evaluate this technique by
+deriving example static analyses. For qualitative information flow, we
+derive a dependence analysis similar to the logic of Amtoft and
+Banerjee (SAS'04) and the type system of Hunt and Sands
+(POPL'06). For quantitative information flow, we derive a
+novel cardinality analysis that bounds the leakage conveyed by a
+program instead of simply deciding whether it exists. This encompasses
+problems that are hypersafety but not k-safety. We put the framework
+to use and introduce variations that achieve precision rivalling the
+most recent and precise static analyses for information flow.
+
+*** [[http://dl.acm.org/authorize?N29073][LightDP: towards automating differential privacy proofs]]
+
+-  Danfeng Zhang
+-  Daniel Kifer
+  
+The growing popularity and adoption of differential privacy in
+academic and industrial settings has resulted in the development of
+increasingly sophisticated algorithms for releasing information while
+preserving privacy. Accompanying this phenomenon is the natural rise
+in the development and publication of incorrect algorithms, thus
+demonstrating the necessity of formal verification tools. However,
+existing formal methods for differential privacy face a dilemma:
+methods based on customized logics can verify sophisticated algorithms
+but come with a steep learning curve and significant annotation burden
+on the programmers, while existing programming platforms lack
+expressive power for some sophisticated algorithms.
+
+In this paper, we present LightDP, a simple imperative language that
+strikes a better balance between expressive power and usability. The
+core of LightDP is a novel relational type system that separates
+relational reasoning from privacy budget calculations. With dependent
+types, the type system is powerful enough to verify sophisticated
+algorithms where the composition theorem falls short. In addition, the
+inference engine of LightDP infers most of the proof details, and even
+searches for the proof with minimal privacy cost when multiple proofs
+exist. We show that LightDP verifies sophisticated algorithms with
+little manual effort.
+
+  
+
+
+
